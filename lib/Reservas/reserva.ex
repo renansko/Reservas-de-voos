@@ -1,20 +1,15 @@
 defmodule Viagens.Reservas.Reserva do
-  @keys [:id_reserva, :id_user, :data_reserva, :embarque_local, :desembarque_local, :cpf_user]
-
-  alias Viagens.Reservas.Viagem
-  alias Viagens.Users.User
+  @keys [:id_reserva, :user_id, :data_reserva, :embarque_local, :desembarque_local]
 
   @enforce_keys @keys
 
   defstruct @keys
 
   def build(
-        %User{cpf: cpf, id: id},
-        %Viagem{
-          embarque: embarque,
-          desenbarque: desenbarque,
-          data: data
-        }
+        data,
+        desenbarque,
+        embarque,
+        user_id
       ) do
     {:ok,
      %__MODULE__{
@@ -22,8 +17,7 @@ defmodule Viagens.Reservas.Reserva do
        data_reserva: data,
        embarque_local: embarque,
        desembarque_local: desenbarque,
-       cpf_user: cpf,
-       id_user: id
+       user_id: user_id
      }}
   end
 
